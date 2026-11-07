@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "triage.yml"
+# Estimated savings: ~2 min/run
+#
 name: Triage
 on:
     workflow_dispatch:
@@ -9,6 +14,10 @@ on:
             - "labeled"
             - "unlabeled"
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
     changelog_check:
         runs-on: ubuntu-latest
